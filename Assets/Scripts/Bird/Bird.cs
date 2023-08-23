@@ -11,6 +11,9 @@ namespace Scripts.Berd
         private BirdMover _birdMover;
         private int _score;
 
+        public Action GameOver;
+        public Action<int> ScoreChanged;
+
         private void Start()
         {
             _birdMover = GetComponent<BirdMover>();
@@ -19,18 +22,19 @@ namespace Scripts.Berd
         public void ResetPlayer()
         {
             _score = 0;
+            ScoreChanged?.Invoke(_score);
             _birdMover.ResetBird();
         }
 
         public void Die()
         {
-            Debug.Log("Умер");
-            Time.timeScale = 0;
+            GameOver?.Invoke();
         }
 
         public void IncreaseScore()
         {
             _score++;
+            ScoreChanged?.Invoke(_score);
         }
     }
 }
