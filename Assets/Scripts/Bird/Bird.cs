@@ -1,18 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bird : MonoBehaviour
+namespace Scripts.Berd
 {
-    // Start is called before the first frame update
-    void Start()
+    [RequireComponent(typeof(BirdMover))]
+    public class Bird : MonoBehaviour
     {
-        
-    }
+        private BirdMover _birdMover;
+        private int _score;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Start()
+        {
+            _birdMover = GetComponent<BirdMover>();
+        }
+
+        public void ResetPlayer()
+        {
+            _score = 0;
+            _birdMover.ResetBird();
+        }
+
+        public void Die()
+        {
+            Debug.Log("Умер");
+            Time.timeScale = 0;
+        }
+
+        public void IncreaseScore()
+        {
+            _score++;
+        }
     }
 }
